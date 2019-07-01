@@ -22,13 +22,7 @@ export class AppComponent implements AfterViewInit{
 
     this.editor.mode = 'javascript';
     this.editor.setTheme('eclipse');
-    console.log('ngAfterViewInit: fileLoaded 1 ' + this.logicFile.fileLoaded);
     setTimeout(() => this.editor.value = this.logicFile.fileData, 1000);
-    console.log('ngAfterViewInit: fileLoaded 2 ' + this.logicFile.fileLoaded);
-    //this.editor.value = this.logicFile.fileData;
-    /*this.editor.value = `function testThis() {
-  console.log("it's working!");
-}`;*/
 
     this.editor.getEditor().commands.addCommand({
       name: 'showOtherCompletions',
