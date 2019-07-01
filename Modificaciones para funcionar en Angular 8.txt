@@ -1,0 +1,30 @@
+ng2-ace-editor
+
+En la version 8 no funciona directamente como se indica en el apartado "Use Component"
+de la documentacion en https://www.npmjs.com/package/ng2-ace-editor
+
+Se debe cambiar el ViewChild en /src/app/app.component.ts en la declaracion de la clase:
+	@ViewChild( AceEditorComponent, { static: false }) editor: AceEditorComponent;
+
+Para usar los temas y modos y otros scripts necesarios, se debe agregar en
+la seccion script de /angular.json
+	"scripts": [
+      "node_modules/ace-builds/src-min/ace.js",
+      "node_modules/ace-builds/src-min/theme-eclipse.js",
+      "node_modules/ace-builds/src-min/mode-javascript.js",
+      "node_modules/ace-builds/src-min/mode-html.js",
+      "node_modules/ace-builds/src-min/worker-javascript.js"
+    ]
+
+ace.js hace falta para que se ejecute los otros javascript. Aparte de los modos 
+y temas seleccionado, se debe tener ademas  "node_modules/ace-builds/src-min/mode-html.js"
+y "node_modules/ace-builds/src-min/worker-javascript.js"
+
+Finalmente worker-javascript da un error. Se elimina agregando esto en assets
+	"assets": [
+	  "src/favicon.ico",
+	  "src/assets",
+	  { "glob": "worker-javascript.js", "input": "./node_modules/ace-builds/src-min/", "output": "/" },
+	  { "glob": "worker-css.js", "input": "./node_modules/ace-builds/src-min/", "output": "/" },
+	  { "glob": "worker-json.js", "input": "./node_modules/ace-builds/src-min/", "output": "/" }
+	],
